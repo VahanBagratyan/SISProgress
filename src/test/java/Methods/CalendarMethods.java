@@ -70,6 +70,7 @@ public class CalendarMethods {
         CalendarLocators calLoc = new CalendarLocators();
         try {
             if(temp>=2){
+                driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
                 return;
             }
             //WebElement checkElement = driver.findElement(calLoc.subtask);
@@ -101,6 +102,8 @@ public class CalendarMethods {
             }
         }
         catch (IndexOutOfBoundsException e){
+
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             return;
         }
     }

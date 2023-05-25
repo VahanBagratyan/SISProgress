@@ -6,6 +6,7 @@ import Data.TaskMessages;
 import Data.UserData;
 import Locators.BottomMenuLocators;
 import Locators.CalendarLocators;
+import Locators.MyTasksLocators;
 import Methods.AssertMethods;
 import Methods.CalendarMethods;
 import Methods.GeneralMethods;
@@ -15,7 +16,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-
 import java.util.concurrent.TimeUnit;
 
 public class TaskSystem {
@@ -80,7 +80,6 @@ public class TaskSystem {
         assertMeth.assertThatElementExists(calLoc.addedTaskByTextTomorrow(userData.getTempTaskName()),
                 taskMes.cantAddTask);
     }
-
     @Test
     public void addTaskFromCalendarForTomorrowThenDelete(){
         BottomMenuLocators menuLoc = new BottomMenuLocators();
@@ -106,7 +105,6 @@ public class TaskSystem {
         assertMeth.assertThatElementDoesNotExists(calLoc.addedTaskByTextTomorrow(userData.getTempTaskName()),
                 taskMes.cantDeleteTask);
     }
-
     @Test
     public void completeOneSubtaskAndCheckTaskStatus(){
         BottomMenuLocators menuLoc = new BottomMenuLocators();
@@ -134,7 +132,6 @@ public class TaskSystem {
                 10,
                 taskMes.isNotInProgress);
     }
-
     @Test
     public void completeTaskAndCheckTaskStatus(){
         BottomMenuLocators menuLoc = new BottomMenuLocators();
@@ -162,4 +159,31 @@ public class TaskSystem {
                 20,
                 taskMes.isNotCompleted);
     }
+
+    @Test
+    public void addTaskAndCheckAppearanceTaskSection(){
+        BottomMenuLocators menuLoc = new BottomMenuLocators();
+        GeneralMethods genMeth = new GeneralMethods(driver);
+        CalendarLocators calLoc = new CalendarLocators();
+        CalendarMethods calMeth = new CalendarMethods(driver);
+        AssertMethods assertMeth = new AssertMethods(driver);
+        WaitMethods waitMeth = new WaitMethods(driver);
+        TaskMessages taskMes = new TaskMessages();
+        UserData userData = new UserData();
+        MyTasksLocators myTaskLoc = new MyTasksLocators();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        genMeth.click(menuLoc.calendar);
+        genMeth.click(calLoc.plusTask);
+        waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
+        calMeth.selectRandomTask();
+        genMeth.click(calLoc.addTask);
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()), taskMes.cantAddTask);
+        genMeth.click(menuLoc.myTasks);
+        waitMeth.waitUntilVisible(myTaskLoc.myTask, 10);
+        waitMeth.waitUntilVisible(myTaskLoc.getAddedTask(userData.getTempTaskName()), 10);
+        assertMeth.assertThatElementExists(myTaskLoc.getAddedTask(userData.getTempTaskName()), taskMes.isNotInMyTasks);
+    }
+
+
+
 }

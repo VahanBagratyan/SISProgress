@@ -1,8 +1,0 @@
-stages:
-  - test
-
-run_tests:
-  stage: test
-  script:
-    - echo "Running test cases..."
-    - # Command or script to run your test cases
