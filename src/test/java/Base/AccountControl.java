@@ -1,7 +1,6 @@
 package Base;
 
 import Data.LogInMessages;
-import Data.OneTimeUsedMessages;
 import Data.UserData;
 import Locators.BottomMenuLocators;
 import Locators.HomePageLocators;
@@ -39,9 +38,10 @@ public class AccountControl {
         GeneralMethods genMeth = new GeneralMethods(driver);
         BottomMenuLocators menuLoc = new BottomMenuLocators();
         ProfileLocators profileLoc = new ProfileLocators();
-        OneTimeUsedMessages message = new OneTimeUsedMessages();
         genMeth.click(menuLoc.profile);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         genMeth.scrollToElementAndClick(profileLoc.logOut, 5);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(profileLoc.logOutYes);
     }
 }

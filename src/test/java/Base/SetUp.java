@@ -19,7 +19,6 @@ public class SetUp {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        System.out.println(filePath);
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName", "emulator-5554");

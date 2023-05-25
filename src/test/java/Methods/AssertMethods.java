@@ -35,6 +35,7 @@ public class AssertMethods  {
         try{
         boolean elementExist = driver.findElement(locator).isDisplayed();
         Assert.assertFalse(elementExist, message);
+
         }catch (NoSuchElementException e) {
             driver.manage().timeouts()
                     .implicitlyWait(20, TimeUnit.SECONDS);

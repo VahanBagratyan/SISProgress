@@ -3,6 +3,7 @@ package Cases;
 import Base.AccountControl;
 import Base.SetUp;
 import Data.TaskMessages;
+import Data.UserData;
 import Locators.BottomMenuLocators;
 import Locators.CalendarLocators;
 import Methods.AssertMethods;
@@ -48,16 +49,20 @@ public class TaskSystem {
         AssertMethods assertMeth = new AssertMethods(driver);
         WaitMethods waitMeth = new WaitMethods(driver);
         TaskMessages taskMes = new TaskMessages();
+        UserData userData = new UserData();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(menuLoc.calendar);
         genMeth.click(calLoc.plusTask);
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
         genMeth.click(calLoc.addTask);
-        assertMeth.assertThatElementExists(calLoc.addedTask, taskMes.cantAddTask);
+        System.out.println(calLoc.addedTaskByTextToday(userData.getTempTaskName()));
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()),
+                taskMes.cantAddTask);
     }
     @Test
     public void addTaskFromCalendarForTomorrow(){
+        UserData userData = new UserData();
         BottomMenuLocators menuLoc = new BottomMenuLocators();
         GeneralMethods genMeth = new GeneralMethods(driver);
         CalendarLocators calLoc = new CalendarLocators();
@@ -72,7 +77,8 @@ public class TaskSystem {
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
         genMeth.click(calLoc.addTask);
-        assertMeth.assertThatElementExists(calLoc.addedTaskTomorrow, taskMes.cantAddTask);
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextTomorrow(userData.getTempTaskName()),
+                taskMes.cantAddTask);
     }
 
     @Test
@@ -84,6 +90,7 @@ public class TaskSystem {
         AssertMethods assertMeth = new AssertMethods(driver);
         WaitMethods waitMeth = new WaitMethods(driver);
         TaskMessages taskMes = new TaskMessages();
+        UserData userData = new UserData();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(menuLoc.calendar);
         calMeth.clickTomorrowCalendar();
@@ -91,10 +98,13 @@ public class TaskSystem {
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
         genMeth.click(calLoc.addTask);
-        assertMeth.assertThatElementExists(calLoc.addedTaskTomorrow, taskMes.cantAddTask);
-        genMeth.click(calLoc.addedTaskTomorrow);
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextTomorrow(userData.getTempTaskName()),
+                taskMes.cantAddTask);
+        genMeth.click(calLoc.addedTaskByTextTomorrow(userData.getTempTaskName()));
         genMeth.click(calLoc.deleteTask);
-        assertMeth.assertThatElementDoesNotExists(calLoc.addedTaskTomorrow, taskMes.cantDeleteTask);
+        waitMeth.waitUntilInvisible(calLoc.deleteTask, 20);
+        assertMeth.assertThatElementDoesNotExists(calLoc.addedTaskByTextTomorrow(userData.getTempTaskName()),
+                taskMes.cantDeleteTask);
     }
 
     @Test
@@ -106,18 +116,23 @@ public class TaskSystem {
         AssertMethods assertMeth = new AssertMethods(driver);
         WaitMethods waitMeth = new WaitMethods(driver);
         TaskMessages taskMes = new TaskMessages();
+        UserData userData = new UserData();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(menuLoc.calendar);
         genMeth.click(calLoc.plusTask);
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
         genMeth.click(calLoc.addTask);
-        assertMeth.assertThatElementExists(calLoc.addedTask, taskMes.cantAddTask);
-        genMeth.click(calLoc.addedTask);
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()), taskMes.cantAddTask);
+        genMeth.click(calLoc.addedTaskByTextToday(userData.getTempTaskName()));
         genMeth.click(calLoc.subtaskDropDown);
         genMeth.click(calLoc.subtask);
         genMeth.click(calLoc.submit);
-        assertMeth.waitForElementAndAssertThatAttributeContains("In Progress",calLoc.addedTask,"content-desc", 10, taskMes.isNotInProgress);
+        assertMeth.waitForElementAndAssertThatAttributeContains("In Progress",
+                calLoc.addedTaskByTextToday(userData.getTempTaskName()),
+                "content-desc",
+                10,
+                taskMes.isNotInProgress);
     }
 
     @Test
@@ -129,17 +144,22 @@ public class TaskSystem {
         AssertMethods assertMeth = new AssertMethods(driver);
         WaitMethods waitMeth = new WaitMethods(driver);
         TaskMessages taskMes = new TaskMessages();
+        UserData userData = new UserData();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(menuLoc.calendar);
         genMeth.click(calLoc.plusTask);
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
         genMeth.click(calLoc.addTask);
-        assertMeth.assertThatElementExists(calLoc.addedTask, taskMes.cantAddTask);
-        genMeth.click(calLoc.addedTask);
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()), taskMes.cantAddTask);
+        genMeth.click(calLoc.addedTaskByTextToday(userData.getTempTaskName()));
         genMeth.click(calLoc.subtaskDropDown);
         calMeth.completeTask();
         genMeth.click(calLoc.submit);
-        assertMeth.waitForElementAndAssertThatAttributeContains("Completed",calLoc.addedTask,"content-desc", 10, taskMes.isNotCompleted);
+        assertMeth.waitForElementAndAssertThatAttributeContains("Completed",
+                calLoc.addedTaskByTextToday(userData.getTempTaskName()),
+                "content-desc",
+                20,
+                taskMes.isNotCompleted);
     }
 }

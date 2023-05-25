@@ -1,6 +1,7 @@
 package Data;
 
 public class UserData {
+    private static String tempTaskName;
     private String validMail = "usermobile@test.com";
     private String validFullName = "Mobile User Test";
     private String validPassword = "Test1234*";
@@ -22,4 +23,12 @@ public class UserData {
     public String getInvalidFormatEmail(){return this.invalidFormatMail;}
     public String getInvalidEmail(){return this.invalidEmail;}
     public String getInvalidPassword(){return this.invalidPassword;}
+
+    public String getTempTaskName() {
+        return this.tempTaskName;
+    }
+
+    public void setTempTaskName(String tempTaskName) {
+        this.tempTaskName = tempTaskName;
+    }
 }
