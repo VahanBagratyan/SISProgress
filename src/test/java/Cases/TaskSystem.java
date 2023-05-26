@@ -183,7 +183,4 @@ public class TaskSystem {
         waitMeth.waitUntilVisible(myTaskLoc.getAddedTask(userData.getTempTaskName()), 10);
         assertMeth.assertThatElementExists(myTaskLoc.getAddedTask(userData.getTempTaskName()), taskMes.isNotInMyTasks);
     }
-
-
-
 }

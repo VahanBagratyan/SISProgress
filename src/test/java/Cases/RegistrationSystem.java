@@ -4,7 +4,6 @@ import Data.UserData;
 import Locators.RegistrationLocators;
 import Methods.GeneralMethods;
 import Methods.RegistrationMethods;
-import Methods.RequestMethods;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeClass;

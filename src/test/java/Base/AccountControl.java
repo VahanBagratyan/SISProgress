@@ -24,7 +24,7 @@ public class AccountControl {
         UserData userData = new UserData();
         AssertMethods assertMeth = new AssertMethods(driver);
         HomePageLocators homeLock = new HomePageLocators();
-        RequestMethods reqMeth = new RequestMethods(driver);
+        RequestMethods reqMeth = new RequestMethods();
         LogInMessages logMes = new LogInMessages();
         reqMeth.registerRequest();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

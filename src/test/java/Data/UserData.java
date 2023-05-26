@@ -12,6 +12,7 @@ public class UserData {
     private String mail = "gevorik@matnaqash.zuzu";
     private String password = "Test123*";
     private String number = "0987654321";
+    private String tempMail = "a" +(int) (Math.random()*100590000)+"gev"+ (int)(Math.random()*10070000);
 
     public String getFullName(){return this.fullName;}
     public String  getMail(){return this.mail;}
@@ -23,11 +24,15 @@ public class UserData {
     public String getInvalidFormatEmail(){return this.invalidFormatMail;}
     public String getInvalidEmail(){return this.invalidEmail;}
     public String getInvalidPassword(){return this.invalidPassword;}
-
+    public String getTempMail(){
+        return this.tempMail;
+    }
+    public void setTempMail(String text){
+        this.tempMail = text;
+    }
     public String getTempTaskName() {
         return this.tempTaskName;
     }
-
     public void setTempTaskName(String tempTaskName) {
         this.tempTaskName = tempTaskName;
     }
