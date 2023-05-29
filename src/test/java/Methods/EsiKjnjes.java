@@ -9,4 +9,9 @@ public class EsiKjnjes {
     public void a(){
     requestMethods.verifyBySubject();
     }
+    
+        public void av(){
+    requestMethods.verifyBySubject();
+    }
+    
 }
