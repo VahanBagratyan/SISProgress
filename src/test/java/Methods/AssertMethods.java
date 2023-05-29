@@ -1,19 +1,18 @@
 package Methods;
 
+import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class AssertMethods  {
-    WebDriver driver;
-    public AssertMethods(WebDriver driver){
+    AndroidDriver driver;
+    public AssertMethods(AndroidDriver driver){
         this.driver = driver;
     }
-
     public void waitForElementAndAssertThatAttributeContains(String text, By elementLocator, String attribute, int waitTime, String message){
         WebElement element = driver.findElement(elementLocator);
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(waitTime));

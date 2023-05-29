@@ -3,7 +3,6 @@ package Methods;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
-
 import Data.UserData;
 import Locators.CalendarLocators;
 import io.appium.java_client.TouchAction;
@@ -12,7 +11,6 @@ import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +24,7 @@ public class CalendarMethods {
         this.driver = driver;
     }
 
-    public String getTodayDate( int dayFromToday){
+    public String getDate( int dayFromToday){
         String currentDate = driver.getDeviceTime();
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH);

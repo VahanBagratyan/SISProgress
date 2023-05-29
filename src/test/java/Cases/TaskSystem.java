@@ -8,10 +8,7 @@ import Locators.BottomMenuLocators;
 import Locators.CalendarLocators;
 import Locators.HomePageLocators;
 import Locators.MyTasksLocators;
-import Methods.AssertMethods;
-import Methods.CalendarMethods;
-import Methods.GeneralMethods;
-import Methods.WaitMethods;
+import Methods.*;
 import io.appium.java_client.android.AndroidDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -122,7 +119,8 @@ public class TaskSystem {
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
         genMeth.click(calLoc.addTask);
-        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()), taskMes.cantAddTask);
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()),
+                taskMes.cantAddTask);
         genMeth.click(calLoc.addedTaskByTextToday(userData.getTempTaskName()));
         genMeth.click(calLoc.subtaskDropDown);
         genMeth.click(calLoc.subtask);
@@ -149,7 +147,8 @@ public class TaskSystem {
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
         genMeth.click(calLoc.addTask);
-        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()), taskMes.cantAddTask);
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()),
+                taskMes.cantAddTask);
         genMeth.click(calLoc.addedTaskByTextToday(userData.getTempTaskName()));
         genMeth.click(calLoc.subtaskDropDown);
         calMeth.completeTask();
@@ -178,11 +177,13 @@ public class TaskSystem {
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
         genMeth.click(calLoc.addTask);
-        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()), taskMes.cantAddTask);
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()),
+                taskMes.cantAddTask);
         genMeth.click(menuLoc.myTasks);
         waitMeth.waitUntilVisible(myTaskLoc.myTask, 10);
         waitMeth.waitUntilVisible(myTaskLoc.getAddedTask(userData.getTempTaskName()), 10);
-        assertMeth.assertThatElementExists(myTaskLoc.getAddedTask(userData.getTempTaskName()), taskMes.isNotInMyTasks);
+        assertMeth.assertThatElementExists(myTaskLoc.getAddedTask(userData.getTempTaskName()),
+                taskMes.isNotInMyTasks);
     }
     @Test
     public void addTaskForYesterday(){
@@ -211,8 +212,11 @@ public class TaskSystem {
         CalendarMethods calMeth = new CalendarMethods(driver);
         AssertMethods assertMeth = new AssertMethods(driver);
         TaskMessages taskMes = new TaskMessages();
+        HomeMethods homeMeth = new HomeMethods(driver);
         HomePageLocators homeLoc = new HomePageLocators();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        genMeth.click(homeLoc.randomDayLocator);
+        homeMeth.clickHomeDay(4);
+        calMeth.selectRandomTask();
+        genMeth.click(calLoc.addTask);
     }
 }
