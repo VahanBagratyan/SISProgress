@@ -118,10 +118,19 @@ public class RequestMethods {
                 "}");
         JsonObject jsonResponseToken = new Gson().fromJson(tokenJson, JsonObject.class);
         String token = jsonResponseToken.get("token").toString();
-        System.out.println(token);
         token = token.replace("\"", "");
-        System.out.println(token);
-        String messageFull = getReqWithToken("https://api.mail.tm/messages", token );
-        String intro = getMessageIntroBySubject("dffcx", messageFull);
+        while (true){
+            String messageFull = getReqWithToken("https://api.mail.tm/messages", token);
+            String intro = getMessageIntroBySubject("dffcx", messageFull);
+            System.out.println(intro);
+            if(intro==null){
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }else {return;}
+
+        }
     }
 }

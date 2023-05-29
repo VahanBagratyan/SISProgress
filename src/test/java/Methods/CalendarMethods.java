@@ -107,6 +107,20 @@ public class CalendarMethods {
             return;
         }
     }
-
+    public void clickYesterdayCalendar(){
+        String currentDate = driver.getDeviceTime();
+        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH);
+        LocalDate date = LocalDate.parse(currentDate, inputFormat);
+        LocalDate previousDay = date.minusDays(1);
+        String month = previousDay.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        if(1==date.getDayOfMonth()){
+            driver.findElement(By.xpath("//android.widget.ImageView[@index = \"2\"]")).click();
+            driver.findElement(By.xpath("//android.widget.Button[@content-desc=\""+month+"\"]")).click();
+        }
+        String formattedDate = previousDay.format(outputFormat);
+        By vardan = By.xpath("//android.view.View[@content-desc=\"" + formattedDate + "\"]");
+        driver.findElement(vardan).click();
+    }
 
 }

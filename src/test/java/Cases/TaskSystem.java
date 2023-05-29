@@ -183,4 +183,22 @@ public class TaskSystem {
         waitMeth.waitUntilVisible(myTaskLoc.getAddedTask(userData.getTempTaskName()), 10);
         assertMeth.assertThatElementExists(myTaskLoc.getAddedTask(userData.getTempTaskName()), taskMes.isNotInMyTasks);
     }
+    @Test
+    public void addTaskForYesterday(){
+        BottomMenuLocators menuLoc = new BottomMenuLocators();
+        GeneralMethods genMeth = new GeneralMethods(driver);
+        CalendarLocators calLoc = new CalendarLocators();
+        CalendarMethods calMeth = new CalendarMethods(driver);
+        AssertMethods assertMeth = new AssertMethods(driver);
+        TaskMessages taskMes = new TaskMessages();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        genMeth.click(menuLoc.calendar);
+        calMeth.clickYesterdayCalendar();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        assertMeth.assertThatElementDoesNotExists(calLoc.plusTask,taskMes.canAddTaskYesterday);
+    }
 }
