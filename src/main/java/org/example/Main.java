@@ -10,9 +10,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        int rand = (int) (Math.floor(Math.random() * 4) + 1);
+        Random random = new Random();
+        int randomNumber = random.nextInt(7);
+        System.out.println(randomNumber);
     }
-
-
-
 }

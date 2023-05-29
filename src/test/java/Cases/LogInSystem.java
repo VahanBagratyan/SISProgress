@@ -10,12 +10,10 @@ import Methods.GeneralMethods;
 import Methods.RequestMethods;
 import io.appium.java_client.android.AndroidDriver;
 import org.testng.annotations.*;
-
 import java.util.concurrent.TimeUnit;
 
 public class LogInSystem {
     private static AndroidDriver driver;
-
     @BeforeSuite
     public void setUp() {
         SetUp setUp = new SetUp();

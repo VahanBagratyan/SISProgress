@@ -6,6 +6,7 @@ import Data.TaskMessages;
 import Data.UserData;
 import Locators.BottomMenuLocators;
 import Locators.CalendarLocators;
+import Locators.HomePageLocators;
 import Locators.MyTasksLocators;
 import Methods.AssertMethods;
 import Methods.CalendarMethods;
@@ -72,7 +73,7 @@ public class TaskSystem {
         TaskMessages taskMes = new TaskMessages();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(menuLoc.calendar);
-        calMeth.clickTomorrowCalendar();
+        calMeth.clickCalendarDay(1);
         genMeth.click(calLoc.plusTask);
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
@@ -92,7 +93,7 @@ public class TaskSystem {
         UserData userData = new UserData();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(menuLoc.calendar);
-        calMeth.clickTomorrowCalendar();
+        calMeth.clickCalendarDay(1);
         genMeth.click(calLoc.plusTask);
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         calMeth.selectRandomTask();
@@ -193,12 +194,25 @@ public class TaskSystem {
         TaskMessages taskMes = new TaskMessages();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(menuLoc.calendar);
-        calMeth.clickYesterdayCalendar();
+        calMeth.clickCalendarDay(-1);
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         assertMeth.assertThatElementDoesNotExists(calLoc.plusTask,taskMes.canAddTaskYesterday);
+    }
+
+    @Test
+    public void addTaskFromHomepageForRandomDay(){
+        BottomMenuLocators menuLoc = new BottomMenuLocators();
+        GeneralMethods genMeth = new GeneralMethods(driver);
+        CalendarLocators calLoc = new CalendarLocators();
+        CalendarMethods calMeth = new CalendarMethods(driver);
+        AssertMethods assertMeth = new AssertMethods(driver);
+        TaskMessages taskMes = new TaskMessages();
+        HomePageLocators homeLoc = new HomePageLocators();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        genMeth.click(homeLoc.randomDayLocator);
     }
 }

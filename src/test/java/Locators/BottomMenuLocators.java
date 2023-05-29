@@ -15,4 +15,6 @@ public class BottomMenuLocators {
             "Tab 5 of 5\"]");
     public By myTasks = By.xpath("//android.view.View[@content-desc=\"My tasks\n" +
             "Tab 4 of 5\"]");
+    public By home = By.xpath("//android.view.View[@content-desc=\"Home\n" +
+            "Tab 1 of 5\"]");
 }
