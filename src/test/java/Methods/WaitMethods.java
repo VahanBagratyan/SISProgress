@@ -17,7 +17,7 @@ public class   WaitMethods {
     public void waitUntilVisible(By locator, int waitTime){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(locator)));
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
     public void waitUntilInvisible(By locator, int waitTime){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));

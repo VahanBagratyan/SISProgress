@@ -7,6 +7,7 @@ import org.openqa.selenium.NoSuchElementException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class HomeMethods {
@@ -14,18 +15,18 @@ public class HomeMethods {
     public HomeMethods(AndroidDriver driver){
         this.driver = driver;
     }
-    public void clickHomeDay( int dayFromToday){
+    public void clickRandomDayFromHome( int dayFromToday){
         String currentDate = driver.getDeviceTime();
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH);
-        String date = LocalDate.parse(currentDate, inputFormat).plusDays(dayFromToday).plusDays(dayFromToday).format(outputFormat);
+        String date = LocalDate.parse(currentDate, inputFormat).plusDays(dayFromToday).format(outputFormat);
+        System.out.println(date);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         try{
-            driver.findElement(By.xpath("//android.view.View[@content-desc=\""+date+"\"]"));
+            driver.findElement(By.xpath("//android.view.View[@content-desc=\""+date+"\"]")).click();
         }catch (NoSuchElementException e){
             if(dayFromToday>0){
             driver.findElement(By.xpath("//android.view.View[@index = \"13\"]")).click();}
-            else {}
             driver.findElement(By.xpath("//android.view.View[@content-desc=\""+date+"\"]")).click();
         }
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

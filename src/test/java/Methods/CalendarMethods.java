@@ -8,20 +8,25 @@ import Locators.CalendarLocators;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.offset.PointOption;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class CalendarMethods {
     AndroidDriver driver;
-    private int scrollLimit = (int) (Math.floor(Math.random() * 4) + 1);
+    Random random = new Random();
+    private int scrollLimit = random.nextInt(6);
+
     private static int temp = 0;
 
     public CalendarMethods(AndroidDriver driver){
         this.driver = driver;
+        System.out.println(scrollLimit);
     }
 
     public String getDate( int dayFromToday){
@@ -37,37 +42,40 @@ public class CalendarMethods {
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH);
         LocalDate date = LocalDate.parse(currentDate, inputFormat);
         LocalDate nextDay = date.plusDays(day);
+        System.out.println(nextDay);
         int lastDayOfMonth = date.lengthOfMonth();
-        String month = nextDay.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
-        if(lastDayOfMonth==date.getDayOfMonth()){
+        String month = date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        String nextMonth = nextDay.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        if(month!=nextMonth){
             driver.findElement(By.xpath("//android.widget.ImageView[@index = \"2\"]")).click();
-            driver.findElement(By.xpath("//android.widget.Button[@content-desc=\""+month+"\"]")).click();
+            driver.findElement(By.xpath("//android.widget.Button[@content-desc=\""+nextMonth+"\"]")).click();
         }
         String formattedDate = nextDay.format(outputFormat);
         By vardan = By.xpath("//android.view.View[@content-desc=\"" + formattedDate + "\"]");
         driver.findElement(vardan).click();
     }
-    public void selectRandomTask(){
+    public String selectRandomTask() {
         TouchAction touchAction = new TouchAction(driver);
         if (scrollLimit <= 0) {
             WebElement element = driver.findElements(By.xpath("//android.view.View[@index=\"0\" and @focusable= \"true\" and @clickable = \"true\"]"))
                     .get(2);
-            UserData userData = new UserData();
-            userData.setTempTaskName(element.getAttribute("content-desc"));
             Dimension size = element.getSize();
-            int width = (size.getWidth()/4)*3;
-            int height = size.getHeight()/2;
+            int width = (size.getWidth() / 4) * 3;
+            int height = size.getHeight() / 2;
             Point startPoints = element.getLocation();
-            int x = startPoints.x+width;
-            int y = startPoints.y+height;
-            touchAction.tap(PointOption.point(x,y)).perform();
-            return;
+            int x = startPoints.x + width;
+            int y = startPoints.y + height;
+            touchAction.tap(PointOption.point(x, y)).perform();
+            String taskName = element.getAttribute("content-desc");
+            return taskName;
+        } else {
+            GeneralMethods genMeth = new GeneralMethods(driver);
+            genMeth.scrollFromTo(530, 1400, 530, 800);
+            scrollLimit -= 1;
+            return selectRandomTask();
         }
-        GeneralMethods genMeth = new GeneralMethods(driver);
-        genMeth.scrollFromTo( 530, 1400, 530, 800);
-        scrollLimit-=1;
-        selectRandomTask();
     }
+
 
 
 
@@ -108,9 +116,7 @@ public class CalendarMethods {
             }
         }
         catch (IndexOutOfBoundsException e){
-
             driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            return;
         }
     }
 }
