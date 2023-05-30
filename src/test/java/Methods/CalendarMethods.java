@@ -42,11 +42,9 @@ public class CalendarMethods {
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH);
         LocalDate date = LocalDate.parse(currentDate, inputFormat);
         LocalDate nextDay = date.plusDays(day);
-        System.out.println(nextDay);
-        int lastDayOfMonth = date.lengthOfMonth();
         String month = date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
         String nextMonth = nextDay.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
-        if(month!=nextMonth){
+        if(!month.equals(nextMonth)){
             driver.findElement(By.xpath("//android.widget.ImageView[@index = \"2\"]")).click();
             driver.findElement(By.xpath("//android.widget.Button[@content-desc=\""+nextMonth+"\"]")).click();
         }

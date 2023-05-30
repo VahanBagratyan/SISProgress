@@ -20,7 +20,6 @@ public class HomeMethods {
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", Locale.ENGLISH);
         String date = LocalDate.parse(currentDate, inputFormat).plusDays(dayFromToday).format(outputFormat);
-        System.out.println(date);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         try{
             driver.findElement(By.xpath("//android.view.View[@content-desc=\""+date+"\"]")).click();

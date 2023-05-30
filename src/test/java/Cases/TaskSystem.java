@@ -6,7 +6,6 @@ import Data.TaskMessages;
 import Data.UserData;
 import Locators.BottomMenuLocators;
 import Locators.CalendarLocators;
-import Locators.HomePageLocators;
 import Locators.MyTasksLocators;
 import Methods.*;
 import io.appium.java_client.android.AndroidDriver;
@@ -159,7 +158,6 @@ public class TaskSystem {
                 20,
                 taskMes.isNotCompleted);
     }
-
     @Test
     public void addTaskAndCheckAppearanceTaskSection(){
         BottomMenuLocators menuLoc = new BottomMenuLocators();
@@ -203,7 +201,6 @@ public class TaskSystem {
         }
         assertMeth.assertThatElementDoesNotExists(calLoc.plusTask,taskMes.canAddTaskYesterday);
     }
-
     @Test
     public void addTaskFromHomepageToday(){
         BottomMenuLocators menuLoc = new BottomMenuLocators();
@@ -214,9 +211,7 @@ public class TaskSystem {
         AssertMethods assertMeth = new AssertMethods(driver);
         TaskMessages taskMes = new TaskMessages();
         HomeMethods homeMeth = new HomeMethods(driver);
-        HomePageLocators homeLoc = new HomePageLocators();
         WaitMethods waitMeth = new WaitMethods(driver);
-        Random random = new Random();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         homeMeth.clickRandomDayFromHome(0);
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
@@ -228,8 +223,6 @@ public class TaskSystem {
         assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()),
                 taskMes.cantAddTaskFromHomePageToday);
     }
-
-
     @Test
     public void addTaskFromHomepageNextWeek(){
         GeneralMethods genMeth = new GeneralMethods(driver);
@@ -242,15 +235,14 @@ public class TaskSystem {
         HomeMethods homeMeth = new HomeMethods(driver);
         Random random = new Random();
         WaitMethods waitMeth = new WaitMethods(driver);
-        int randomNumber = random.nextInt(7);
+        int randomNumber = random.nextInt(5)+1;
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         homeMeth.clickRandomDayFromHome(randomNumber);
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         userData.setTempTaskName(calMeth.selectRandomTask());
         genMeth.click(calLoc.addTask);
         genMeth.click(menuLoc.calendar);
-        calMeth.clickCalendarDay(5);
-        System.out.println(calLoc.addedTaskByTextTomorrow(userData.getTempTaskName()));
+        calMeth.clickCalendarDay(randomNumber);
         assertMeth.assertThatElementExists(calLoc.addedTaskByTextTomorrow(userData.getTempTaskName()),
                 taskMes.cantAddTaskFromHomePageTomorrow);
     }
