@@ -31,7 +31,6 @@ public class MailMethods {
                 "    \"address\" : \""+tempMail+"@internetkeno.com\",\n" +
                 "    \"password\": \"password\"\n" +
                 "}");
-        System.out.println(tempMail);
         String tokenJson = reqMeth.postReq("https://api.mail.tm/token", "{\n" +
                 "    \"address\" : \""+tempMail+"@internetkeno.com\",\n" +
                 "    \"password\": \"password\"\n" +

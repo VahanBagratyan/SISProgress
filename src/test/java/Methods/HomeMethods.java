@@ -25,7 +25,11 @@ public class HomeMethods {
             driver.findElement(By.xpath("//android.view.View[@content-desc=\""+date+"\"]")).click();
         }catch (NoSuchElementException e){
             if(dayFromToday>0){
-            driver.findElement(By.xpath("//android.view.View[@index = \"13\"]")).click();}
+            driver.findElement(By.xpath("//android.view.View[@index = \"13\"]")).click();
+            }
+            else {
+                driver.findElement(By.xpath("//android.view.View[@index = \"11\"]")).click();
+            }
             driver.findElement(By.xpath("//android.view.View[@content-desc=\""+date+"\"]")).click();
         }
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

@@ -14,6 +14,7 @@ public class AssertMethods  {
         this.driver = driver;
     }
     public void waitForElementAndAssertThatAttributeContains(String text, By elementLocator, String attribute, int waitTime, String message){
+        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
         WebElement element = driver.findElement(elementLocator);
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(waitTime));
         try {

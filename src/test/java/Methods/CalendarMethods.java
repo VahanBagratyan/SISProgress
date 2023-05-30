@@ -26,7 +26,6 @@ public class CalendarMethods {
 
     public CalendarMethods(AndroidDriver driver){
         this.driver = driver;
-        System.out.println(scrollLimit);
     }
 
     public String getDate( int dayFromToday){

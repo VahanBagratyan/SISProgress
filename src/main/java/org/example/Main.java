@@ -12,6 +12,5 @@ public class Main {
     public static void main(String[] args) {
         Random random = new Random();
         int randomNumber = random.nextInt(7);
-        System.out.println(randomNumber);
     }
 }

@@ -12,5 +12,6 @@ public class TaskMessages {
     public String canAddTaskYesterday = "The user can add task for yesterday";
     public String cantAddTaskFromHomePageToday = "The user can not add a task from homepage for today";
     public String cantAddTaskFromHomePageTomorrow = "The user can not add a task from homepage for tomorrow";
+    public String canAddTaskYesterdayFromHomepage = "The user can add a task from homepage for Yesterday";
 
 }
