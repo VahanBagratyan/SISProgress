@@ -3,12 +3,10 @@ package Methods;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
-import Data.UserData;
 import Locators.CalendarLocators;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.offset.PointOption;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -16,18 +14,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
 public class CalendarMethods {
     AndroidDriver driver;
     Random random = new Random();
     private int scrollLimit = random.nextInt(6);
-
     private static int temp = 0;
-
     public CalendarMethods(AndroidDriver driver){
         this.driver = driver;
     }
-
     public String getDate( int dayFromToday){
         String currentDate = driver.getDeviceTime();
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
@@ -72,10 +66,6 @@ public class CalendarMethods {
             return selectRandomTask();
         }
     }
-
-
-
-
     public void completeTask(){
         GeneralMethods genMeth = new GeneralMethods(driver);
         CalendarLocators calLoc = new CalendarLocators();

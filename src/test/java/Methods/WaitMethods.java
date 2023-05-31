@@ -5,9 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 public class   WaitMethods {
     private AndroidDriver driver;
@@ -23,7 +21,8 @@ public class   WaitMethods {
     public void waitUntilInvisible(By locator, int waitTime){
         try{
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
-        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(locator)));}
+        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(locator)));
+        }
         catch (NoSuchElementException e){
 
         }

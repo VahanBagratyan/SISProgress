@@ -11,7 +11,6 @@ public class MailMethods {
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
         JsonArray messages = jsonObject.getAsJsonArray("hydra:member");
         String intro = null;
-
         for (int i = messages.size() - 1; i >= 0; i--) {
             JsonObject message = messages.get(i).getAsJsonObject();
             String messageSubject = message.get("subject").getAsString();
@@ -20,7 +19,6 @@ public class MailMethods {
                 break;
             }
         }
-
         return intro;
     }
     public void verifyBySubject(String subject){
@@ -48,8 +46,9 @@ public class MailMethods {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }else {return;}
-
+            }else {
+                return;
+            }
         }
     }
 }

@@ -1,8 +1,5 @@
 package Data;
 
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebDriver;
-
 public class TaskMessages {
     public String cantAddTask = "When the user adds a task it is not visible in calendar";
     public String cantDeleteTask = "The user can't delete a task";

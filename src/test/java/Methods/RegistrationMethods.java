@@ -12,7 +12,6 @@ public class RegistrationMethods {
     public RegistrationMethods(AndroidDriver driver){
         this.driver = driver;
     }
-
     public void selectDate(By fieldLocator, By monthArrow, By month, By yearArrow, By year, By day){
         GeneralMethods genMeth = new GeneralMethods(driver);
         TouchAction touchAction = new TouchAction(driver);
