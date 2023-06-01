@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class GeneralMethods {
     AndroidDriver driver;
@@ -28,12 +29,15 @@ public class GeneralMethods {
     }
 
     public void scrollToElementAndClick(By locator, int scrollLimit) {
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         if (scrollLimit <= 0) {
             Assert.assertTrue(driver.findElement(locator).isDisplayed());
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             return;
         }
         try {
             WebElement element = driver.findElement(locator);
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             element.click();
         }catch (NoSuchElementException a) {
             scrollFromTo( 750, 1700, 750, 200);

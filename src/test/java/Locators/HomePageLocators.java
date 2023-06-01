@@ -2,7 +2,6 @@ package Locators;
 
 import Data.UserData;
 import org.openqa.selenium.By;
-
 import java.util.Random;
 
 public class HomePageLocators {

@@ -42,6 +42,7 @@ public class CalendarMethods {
             driver.findElement(By.xpath("//android.widget.Button[@content-desc=\""+nextMonth+"\"]")).click();
         }
         String formattedDate = nextDay.format(outputFormat);
+        System.out.println(formattedDate);
         By vardan = By.xpath("//android.view.View[@content-desc=\"" + formattedDate + "\"]");
         driver.findElement(vardan).click();
     }

@@ -26,6 +26,7 @@ public class AccountControl {
         HomePageLocators homeLock = new HomePageLocators();
         RequestMethods reqMeth = new RequestMethods();
         LogInMessages logMes = new LogInMessages();
+      //  reqMeth.postReq("https://sisprogress.online/register/ForTest", "{\"type\":\"mobile\"}");
         reqMeth.registerRequest();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(loginLoc.logInButton);

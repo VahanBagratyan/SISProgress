@@ -10,7 +10,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
-        int randomNumber = random.nextInt(7);
+        for (int i = 0; i < 4; i++) {
+            System.out.println("Vlad");
+        }
     }
 }

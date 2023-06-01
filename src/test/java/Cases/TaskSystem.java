@@ -6,14 +6,11 @@ import Data.TaskMessages;
 import Data.UserData;
 import Locators.BottomMenuLocators;
 import Locators.CalendarLocators;
+import Locators.GoalsLocators;
 import Locators.MyTasksLocators;
 import Methods.*;
 import io.appium.java_client.android.AndroidDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
-
+import org.testng.annotations.*;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +38,17 @@ public class TaskSystem {
         accountControl.logOut();
         driver.terminateApp(appPkg);
         driver.activateApp(appPkg);
+    }
+
+    @DataProvider(name = "extracurricular")
+    public Object[][] credentialsProvider() {
+        return new Object[][]{
+                {"Recommendation"},
+                {"Academic"},
+                {"Religious"},
+                {"Dance"},
+                {"Work"}
+        };
     }
 
     @Test
@@ -134,7 +142,8 @@ public class TaskSystem {
         genMeth.click(calLoc.subtaskDropDown);
         genMeth.click(calLoc.subtask);
         genMeth.click(calLoc.submit);
-        assertMeth.waitForElementAndAssertThatAttributeContains("In Progress",
+        assertMeth.waitForElementAndAssertThatAttributeContains(
+                "In Progress",
                 calLoc.addedTaskByTextToday(userData.getTempTaskName()),
                 "content-desc", 10,
                 taskMes.isNotInProgress);
@@ -161,7 +170,8 @@ public class TaskSystem {
         genMeth.click(calLoc.subtaskDropDown);
         calMeth.completeTask();
         genMeth.click(calLoc.submit);
-        assertMeth.waitForElementAndAssertThatAttributeContains("Completed",
+        assertMeth.waitForElementAndAssertThatAttributeContains(
+                "Completed",
                 calLoc.addedTaskByTextToday(userData.getTempTaskName()),
                 "content-desc", 20,
                 taskMes.isNotCompleted);
@@ -270,5 +280,32 @@ public class TaskSystem {
         homeMeth.clickRandomDayFromHome(-randomNumber);
         assertMeth.assertThatElementDoesNotExists(calLoc.tasksWindow,
                 taskMes.canAddTaskYesterdayFromHomepage);
+    }
+
+    @Test
+    public void addTaskFromGoals(){
+        BottomMenuLocators menuLoc = new BottomMenuLocators();
+        GeneralMethods genMeth = new GeneralMethods(driver);
+        CalendarLocators calLoc = new CalendarLocators();
+        GoalsLocators goalLoc = new GoalsLocators();
+        CalendarMethods calMeth = new CalendarMethods(driver);
+        UserData userData = new UserData();
+        AssertMethods assertMeth = new AssertMethods(driver);
+        TaskMessages taskMes = new TaskMessages();
+        HomeMethods homeMeth = new HomeMethods(driver);
+        GoalsMethods goalMeth = new GoalsMethods(driver);
+        WaitMethods waitMeth = new WaitMethods(driver);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        genMeth.click(menuLoc.goals);
+        genMeth.click(goalLoc.extracurricular);
+        genMeth.click(goalLoc.getExtracurricularByText("Recommendation"));
+        goalMeth.clickRandomExtracurricular();
+        //waitMeth.waitUntilInvisible(goalLoc.extracurricularAdd, 20);
+        //genMeth.scrollToElementAndClick(goalLoc.getExtracurricularByText(extracurricularName), 5);
+        goalMeth.clickExtracurricularAdd();
+        genMeth.click(menuLoc.calendar);
+        assertMeth.assertThatElementExists(
+                calLoc.lastAddedTask,
+                taskMes.cantAddTask);
     }
 }

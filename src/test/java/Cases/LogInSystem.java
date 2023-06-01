@@ -10,15 +10,18 @@ import Methods.GeneralMethods;
 import Methods.RequestMethods;
 import io.appium.java_client.android.AndroidDriver;
 import org.testng.annotations.*;
+
 import java.util.concurrent.TimeUnit;
 
 public class LogInSystem {
     private static AndroidDriver driver;
+
     @BeforeSuite
     public void setUp() {
         SetUp setUp = new SetUp();
         driver = setUp.setUp();
     }
+
     @AfterMethod
     public void afterEach() {
         String appPkg = driver.getCurrentPackage();
@@ -28,7 +31,7 @@ public class LogInSystem {
 
     @DataProvider(name = "credentials")
     public Object[][] credentialsProvider() {
-        return new Object[][] {
+        return new Object[][]{
                 {"username", "password"},
                 {"username@com", "password"},
                 {"userna@", "password"},
@@ -36,7 +39,7 @@ public class LogInSystem {
                 {"username3.com", "password"}
         };
     }
-    //This case will log in with valid data and assert that the username is correct
+
     @Test
     public void logInWithValidData() {
         GeneralMethods genMeth = new GeneralMethods(driver);
@@ -52,10 +55,17 @@ public class LogInSystem {
         genMeth.type(userData.getValidMail(), loginLoc.emailField);
         genMeth.type(userData.getValidPassword(), loginLoc.passwordField);
         genMeth.click(loginLoc.logInButton);
-        assertMeth.waitForElementAndAssertThatAttributeContains(userData.getValidFullName(), homeLock.helloText, "content-desc", 20, logMes.wrongUserName);
+        assertMeth.waitForElementAndAssertThatAttributeContains(
+                userData.getValidFullName(),
+                homeLock.helloText,
+                "content-desc",
+                20,
+                logMes.wrongUserName
+        );
     }
+
     @Test(dataProvider = "credentials")
-    public void logInWithInvalidFormatMail( String userEmail, String password) {
+    public void logInWithInvalidFormatMail(String userEmail, String password) {
         GeneralMethods genMeth = new GeneralMethods(driver);
         LogInLocators loginLoc = new LogInLocators();
         AssertMethods assertMeth = new AssertMethods(driver);
@@ -68,6 +78,7 @@ public class LogInSystem {
         assertMeth.assertThatElementExists(loginLoc.wrongFormatMailError, logInMessages.wrongEmailFormatMessage);
         assertMeth.assertThatElementExists(loginLoc.invalidMailOrPasswordError, logInMessages.invalidMailMessage);
     }
+
     @Test
     public void logInWithInvalidEmail() {
         GeneralMethods genMeth = new GeneralMethods(driver);
@@ -82,6 +93,7 @@ public class LogInSystem {
         genMeth.click(loginLoc.logInButton);
         assertMeth.assertThatElementExists(loginLoc.invalidMailOrPasswordError, logInMessages.invalidMailMessage);
     }
+
     @Test
     public void logInWithInvalidPassword() {
         GeneralMethods genMeth = new GeneralMethods(driver);

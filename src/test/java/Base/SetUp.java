@@ -8,8 +8,9 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 public class SetUp {
-        private AndroidDriver driver;
-    public AndroidDriver setUp(){
+    private AndroidDriver driver;
+
+    public AndroidDriver setUp() {
         String filePath = null;
         try {
             URL resourceUrl = getClass().getClassLoader().getResource("app.apk");
@@ -22,7 +23,7 @@ public class SetUp {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName", "emulator-5554");
-        capabilities.setCapability("app",  filePath);
+        capabilities.setCapability("app", filePath);
         capabilities.setCapability("noReset", false);
         capabilities.setCapability("fullReset", true);
 //        capabilities.setCapability("appPackage", "com.sp.sis_progress");

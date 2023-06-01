@@ -12,6 +12,7 @@ public class CalendarLocators {
     public By subtaskDropDown = By.xpath("//android.view.View[@content-desc=\"Subtasks\"]");
     public By subtask = By.xpath("//android.view.View[@focusable = \"true\" and not(@content-desc)]");
     public By submit = By.xpath("//android.widget.Button[@content-desc=\"Submit\"]");
+    public By lastAddedTask = By.xpath("//android.view.View[contains(@content-desc, \"Planned\") and @index = \"7\"]");
 
     public By addedTaskByTextToday(String text) {
         return By.xpath("//android.view.View[contains(@content-desc, \""+text+"\") and  @index = \"7\"]");
