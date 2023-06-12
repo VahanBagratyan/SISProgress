@@ -66,11 +66,6 @@ public class GeneralMethods {
         touchAction.tap(PointOption.point(154, 3020));
     }
     public void selectFromFancyDropdown(By dropdown, By option){
-        try {
-        Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-        }
         click(dropdown);
         click(option);
     }

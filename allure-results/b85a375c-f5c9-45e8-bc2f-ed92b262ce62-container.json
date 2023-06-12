@@ -1,0 +1,1 @@
+{"uuid":"b85a375c-f5c9-45e8-bc2f-ed92b262ce62","name":"Cases.RegistrationSystem","children":["3afe916a-db40-435a-8203-4f7457929c65"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1686142387093,"stop":1686142397423}],"afters":[],"start":1686142387035,"stop":1686142419625}

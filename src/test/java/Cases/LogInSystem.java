@@ -106,6 +106,6 @@ public class LogInSystem {
         genMeth.type(userData.getValidMail(), loginLoc.emailField);
         genMeth.type(userData.getInvalidPassword(), loginLoc.passwordField);
         genMeth.click(loginLoc.logInButton);
-        assertMeth.assertThatElementExists(loginLoc.invalidMailOrPasswordError, logInMessages.invalidMailMessage);
+        assertMeth.assertThatElementExists(loginLoc.invalidMailOrPasswordError, logInMessages.invalidPasswordMessage);
     }
 }

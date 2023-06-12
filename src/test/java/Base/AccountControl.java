@@ -15,10 +15,12 @@ import java.util.concurrent.TimeUnit;
 
 public class AccountControl {
     AndroidDriver driver;
-    public AccountControl(AndroidDriver driver){
+
+    public AccountControl(AndroidDriver driver) {
         this.driver = driver;
     }
-    public void logIn(){
+
+    public void logIn() {
         GeneralMethods genMeth = new GeneralMethods(driver);
         LogInLocators loginLoc = new LogInLocators();
         UserData userData = new UserData();
@@ -26,7 +28,7 @@ public class AccountControl {
         HomePageLocators homeLock = new HomePageLocators();
         RequestMethods reqMeth = new RequestMethods();
         LogInMessages logMes = new LogInMessages();
-      //  reqMeth.postReq("https://sisprogress.online/register/ForTest", "{\"type\":\"mobile\"}");
+        //  reqMeth.postReq("https://sisprogress.online/register/ForTest", "{\"type\":\"mobile\"}");
         reqMeth.registerRequest();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(loginLoc.logInButton);
@@ -35,7 +37,8 @@ public class AccountControl {
         genMeth.click(loginLoc.logInButton);
         assertMeth.waitForElementAndAssertThatAttributeContains(userData.getValidFullName(), homeLock.helloText, "content-desc", 20, logMes.wrongUserName);
     }
-    public void logOut(){
+
+    public void logOut() {
         GeneralMethods genMeth = new GeneralMethods(driver);
         BottomMenuLocators menuLoc = new BottomMenuLocators();
         ProfileLocators profileLoc = new ProfileLocators();

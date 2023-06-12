@@ -10,7 +10,11 @@ import Locators.GoalsLocators;
 import Locators.MyTasksLocators;
 import Methods.*;
 import io.appium.java_client.android.AndroidDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
+
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -39,18 +43,6 @@ public class TaskSystem {
         driver.terminateApp(appPkg);
         driver.activateApp(appPkg);
     }
-
-    @DataProvider(name = "extracurricular")
-    public Object[][] credentialsProvider() {
-        return new Object[][]{
-                {"Recommendation"},
-                {"Academic"},
-                {"Religious"},
-                {"Dance"},
-                {"Work"}
-        };
-    }
-
     @Test
     public void addTaskFromCalendarForToday() {
         BottomMenuLocators menuLoc = new BottomMenuLocators();
@@ -165,7 +157,8 @@ public class TaskSystem {
         waitMeth.waitUntilVisible(calLoc.tasksWindow, 20);
         userData.setTempTaskName(calMeth.selectRandomTask());
         genMeth.click(calLoc.addTask);
-        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()), taskMes.cantAddTask);
+        assertMeth.assertThatElementExists(calLoc.addedTaskByTextToday(userData.getTempTaskName()),
+                taskMes.cantAddTask);
         genMeth.click(calLoc.addedTaskByTextToday(userData.getTempTaskName()));
         genMeth.click(calLoc.subtaskDropDown);
         calMeth.completeTask();
@@ -214,11 +207,11 @@ public class TaskSystem {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(menuLoc.calendar);
         calMeth.clickCalendarDay(-randomNumber);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         assertMeth.assertThatElementDoesNotExists(calLoc.plusTask, taskMes.canAddTaskYesterday);
     }
 
@@ -288,20 +281,14 @@ public class TaskSystem {
         GeneralMethods genMeth = new GeneralMethods(driver);
         CalendarLocators calLoc = new CalendarLocators();
         GoalsLocators goalLoc = new GoalsLocators();
-        CalendarMethods calMeth = new CalendarMethods(driver);
-        UserData userData = new UserData();
         AssertMethods assertMeth = new AssertMethods(driver);
         TaskMessages taskMes = new TaskMessages();
-        HomeMethods homeMeth = new HomeMethods(driver);
         GoalsMethods goalMeth = new GoalsMethods(driver);
-        WaitMethods waitMeth = new WaitMethods(driver);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(menuLoc.goals);
         genMeth.click(goalLoc.extracurricular);
         genMeth.click(goalLoc.getExtracurricularByText("Recommendation"));
         goalMeth.clickRandomExtracurricular();
-        //waitMeth.waitUntilInvisible(goalLoc.extracurricularAdd, 20);
-        //genMeth.scrollToElementAndClick(goalLoc.getExtracurricularByText(extracurricularName), 5);
         goalMeth.clickExtracurricularAdd();
         genMeth.click(menuLoc.calendar);
         assertMeth.assertThatElementExists(

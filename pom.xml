@@ -39,8 +39,5 @@
             <artifactId>allure-testng</artifactId>
             <version>LATEST</version>
         </dependency>
-
-
     </dependencies>
-
 </project>

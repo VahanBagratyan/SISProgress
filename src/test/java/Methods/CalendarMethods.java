@@ -75,7 +75,6 @@ public class CalendarMethods {
                 driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
                 return;
             }
-            //WebElement checkElement = driver.findElement(calLoc.subtask);
             List<WebElement> elements = driver.findElements(calLoc.subtask);
             for (int i = 0; i < elements.size()+1; i++) {
                 Point taskPoints = elements.get(i).getLocation();

@@ -1,5 +1,7 @@
 package Data;
 
+import java.util.HashMap;
+
 public class UserData {
     private static String tempTaskName;
     private String validMail = "usermobile@test.com";
@@ -12,8 +14,14 @@ public class UserData {
     private String mail = "gevorik@matnaqash.zuzu";
     private String password = "Test123*";
     private String number = "0987654321";
-    private String tempMail = "a" +(int) (Math.random()*100590000)+"abc"+ (int)(Math.random()*10070000);
+    private static String tempMail = "a" + (int) (Math.random()*10590)+"a"+
+            (int)(Math.random()*10700) +"@internetkeno.com";
+    private String birthDate = "1999-03-22T05:06:07+01:00";
+    private HashMap<String, String> paramToDelete;
 
+    public String getBirthDate(){
+        return this.birthDate;
+    }
     public String getFullName(){return this.fullName;}
     public String  getMail(){return this.mail;}
     public String getPassword(){return this.password;}

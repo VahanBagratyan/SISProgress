@@ -1,66 +1,73 @@
 package Cases;
 
+import Base.SetUp;
 import Data.UserData;
 import Locators.RegistrationLocators;
 import Methods.GeneralMethods;
+import Methods.MailMethods;
 import Methods.RegistrationMethods;
+import Methods.RequestMethods;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
-import java.net.URL;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class RegistrationSystem {
-
     private AndroidDriver driver;
-    @BeforeClass
-    public void setUp(){
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("deviceName", "emulator-5554");
-        capabilities.setCapability("noReset", false);
-        capabilities.setCapability("appPackage", "com.sp.sis_progress");
-        capabilities.setCapability("appActivity", "com.sp.sis_progress.MainActivity ");
-        try{
-            driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
-        }catch (Exception e){
-            System.out.println(e);
-        }
+    private static String appPkg;
+
+    @BeforeSuite
+    public void setUp() {
+        SetUp setUp = new SetUp();
+        driver = setUp.setUp();
+        appPkg = driver.getCurrentPackage();
+    }
+    @AfterMethod
+    public void deleteAccount(){
+        RequestMethods reqMeth = new RequestMethods();
+        HashMap<String, String> params = new HashMap<>();
+        UserData userData = new UserData();
+        params.put("email", userData.getTempMail());
+        params.put("password", userData.getPassword());
+        params.put("text", "$2b$10$5yjnqNn/RxYamiu0ZhhZzuL9SztPRwSpq4tzpojToQl.WHRJvguf6");
+        reqMeth.deleteReq("https://sisprogress.online/user/deleteForTesting", "", params);
     }
 
     @Test
-    public void RegistrationWithValidData(){
+    public void registrationWithValidData() {
         GeneralMethods genMeth = new GeneralMethods(driver);
         RegistrationLocators regLoc = new RegistrationLocators();
         RegistrationMethods regMeth = new RegistrationMethods(driver);
-        UserData ud = new UserData();
+        UserData userData = new UserData();
+        MailMethods mailMeth = new MailMethods();
+        String tempMail = userData.getTempMail();
+        String token = mailMeth.createAccountReturnToken(tempMail);
+        System.out.println(tempMail);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(regLoc.registrationButton);
-        genMeth.type(ud.getFullName(), regLoc.fullNameField);
-        genMeth.type(ud.getMail(), regLoc.emailField);
-        genMeth.type(ud.getPassword(), regLoc.passwordField);
-        genMeth.type(ud.getPassword(),regLoc.confirmPasswordField);
-        genMeth.scrollFromTo(700,1600, 700, 700);
+        genMeth.type(userData.getFullName(), regLoc.fullNameField);
+        genMeth.type(tempMail, regLoc.emailField);
+        genMeth.type(userData.getPassword(), regLoc.passwordField);
+        genMeth.type(userData.getPassword(), regLoc.confirmPasswordField);
+        genMeth.scrollFromTo(700, 1500, 700, 700);
         genMeth.click(regLoc.countryNumSelector);
         genMeth.click(regLoc.countryNum);
-        genMeth.type(ud.getNumber(), regLoc.numberField);
-        genMeth.scrollFromTo(700,1600, 700, 700);
-        regMeth.selectDate(regLoc.date, regLoc.monthArrow, regLoc.month, regLoc.yearArrow, regLoc.year, regLoc.day);
-        genMeth.clickByCoordinate(800,2500);
-        genMeth.scrollFromTo(700,1600, 700, 700);
-        genMeth.closeKeyboard();
+        genMeth.type(userData.getNumber(), regLoc.numberField);
         genMeth.selectFromFancyDropdown(regLoc.countryDropdown, regLoc.country);
         genMeth.selectFromFancyDropdown(regLoc.gradeDropdown, regLoc.grade);
-        genMeth.click(regLoc.nextButton);
+        regMeth.selectDate(regLoc.date, userData.getBirthDate());
         genMeth.selectFromFancyDropdown(regLoc.uniDropdown, regLoc.uni);
-        genMeth.click(regLoc.termOption);
-        genMeth.click(regLoc.admissionOption);
-        genMeth.click(regLoc.financialAidOption);
-        genMeth.click(regLoc.legacyOption);
+        genMeth.scrollFromTo(700, 1500, 700, 700);
+        //change after bug fix
+        genMeth.clickByCoordinate(1214, 2591);
+        genMeth.clickByCoordinate(241, 2745);
+        genMeth.clickByCoordinate(559, 2583);
+        //
         genMeth.click(regLoc.nextButton);
-        driver.quit();
+        genMeth.click(regLoc.sendLink);
+        //verification
+        mailMeth.verifyMailBySubject("Action Required: Verify your email address", token);
     }
 }
 

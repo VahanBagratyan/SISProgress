@@ -5,6 +5,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class RequestMethods {
     public void registerRequest() {
@@ -68,6 +70,44 @@ public class RequestMethods {
                     .header("Authorization", "Bearer " + token)
                     .GET()
                     .build(), HttpResponse.BodyHandlers.ofString()).body();
+            return response;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public String getReq(String endpoint) {
+        HttpClient httpClient = HttpClient.newBuilder().build();
+        try {
+            String response = httpClient.send(HttpRequest.newBuilder()
+                    .uri(URI.create(endpoint))
+                    .header("Content-Type", "application/json")
+                    .GET()
+                    .build(), HttpResponse.BodyHandlers.ofString()).body();
+            return response;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String deleteReq(String endpoint, String body, HashMap<String, String> param) {
+        HttpClient httpClient = HttpClient.newBuilder().build();
+        String queryString =  param.entrySet()
+                .stream()
+                .map(entry -> entry.getKey() + "=" + entry.getValue())
+                .collect(Collectors.joining("&"));
+        endpoint = endpoint+"?"+queryString;
+        System.out.println(endpoint);
+        try {
+            String response = httpClient.send(HttpRequest.newBuilder()
+                    .uri(URI.create(endpoint))
+                    .header("Content-Type", "application/json")
+                    .DELETE()
+                    .build(), HttpResponse.BodyHandlers.ofString()).body();
+
             return response;
         } catch (IOException e) {
             throw new RuntimeException(e);
