@@ -53,11 +53,11 @@ public class LogInSystem {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(loginLoc.logInButton);
         genMeth.type(userData.getValidMail(), loginLoc.emailField);
-        genMeth.type(userData.getValidPassword(), loginLoc.passwordField);
+        genMeth.type(userData.getPassword(), loginLoc.passwordField);
         genMeth.click(loginLoc.logInButton);
         assertMeth.waitForElementAndAssertThatAttributeContains(
                 userData.getValidFullName(),
-                homeLock.helloText,
+                homeLock.welcomeText,
                 "content-desc",
                 20,
                 logMes.wrongUserName
@@ -89,7 +89,7 @@ public class LogInSystem {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         genMeth.click(loginLoc.logInButton);
         genMeth.type(userData.getInvalidEmail(), loginLoc.emailField);
-        genMeth.type(userData.getValidPassword(), loginLoc.passwordField);
+        genMeth.type(userData.getPassword(), loginLoc.passwordField);
         genMeth.click(loginLoc.logInButton);
         assertMeth.assertThatElementExists(loginLoc.invalidMailOrPasswordError, logInMessages.invalidMailMessage);
     }

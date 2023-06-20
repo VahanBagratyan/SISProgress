@@ -3,6 +3,7 @@ package Methods;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
@@ -100,7 +101,6 @@ public class RequestMethods {
                 .map(entry -> entry.getKey() + "=" + entry.getValue())
                 .collect(Collectors.joining("&"));
         endpoint = endpoint+"?"+queryString;
-        System.out.println(endpoint);
         try {
             String response = httpClient.send(HttpRequest.newBuilder()
                     .uri(URI.create(endpoint))
@@ -114,5 +114,34 @@ public class RequestMethods {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String patchReq(String endpoint, String requestBody){
+        HttpClient httpClient = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(endpoint))
+                .header("Content-Type", "application/json")
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        HttpResponse<String> response = null;
+        try {
+            response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        int statusCode = response.statusCode();
+        String responseBody = response.body();
+        HttpHeaders headers = response.headers();
+
+        // Process the response
+        System.out.println("Response status code: " + statusCode);
+        System.out.println("Response body: " + responseBody);
+        System.out.println("Response headers: " + headers.map());
+        return  requestBody;
     }
 }

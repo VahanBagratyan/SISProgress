@@ -15,10 +15,6 @@ public class RegistrationLocators {
     public By monthArrow = By.xpath("//android.widget.Button[1]");
     public By yearArrow = By.xpath("//android.widget.Button[2]");
     public By yearDropdown = By.xpath("//android.widget.ScrollView");
-    public By monthDropdown = By.xpath("//android.widget.ScrollView");
-    public By month = By.xpath("//android.widget.Button[@content-desc=\"February\"]");
-    public By year = By.xpath("//android.widget.Button[@content-desc=\"2004\"]");
-    public By day = By.xpath("//android.view.View[@content-desc=\"Monday, February 16, 2004\"]");
     public By countryDropdown = By.xpath("//android.widget.Button[@content-desc=\"Country\"]");
     public By country = By.xpath("//android.view.View[@content-desc=\"Albania\"]");
     public By gradeDropdown = By.xpath("//android.widget.Button[@content-desc=\"Grade\"]");
@@ -27,8 +23,10 @@ public class RegistrationLocators {
     public By uniDropdown = By.xpath("//android.widget.Button[@content-desc=\"Pick your dream university\"]");
     public By uni = By.xpath("//android.view.View[@content-desc=\"Stanford University\"]");
     public By sendLink = By.xpath("//android.widget.Button[@content-desc=\"Send verification link\"]");
-    By termOption = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.view.View[4]");
-    public By admissionOption  = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.view.View[13]");
-    public By financialAidOption = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.view.View[18]");
-    public By legacyOption = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.view.View[23]");
+    public By termStart = By.xpath("//android.view.View[@clickable = \"true\"]["+4+"]");
+    public By admissionPlan = By.xpath("//android.view.View[@clickable = \"true\"]["+8+"]");
+    public By financeAID = By.xpath("//android.view.View[@clickable = \"true\"]["+10+"]");
+    public By legacy = By.xpath("//android.view.View[@clickable = \"true\"]["+13+"]");
+    public By experience = By.xpath("//android.widget.EditText");
+    public By submit = By.xpath("//android.widget.Button[@content-desc=\"Submit\"]");
 }

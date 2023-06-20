@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class AssertMethods  {
-    AndroidDriver driver;
+    private final AndroidDriver driver;
     public AssertMethods(AndroidDriver driver){
         this.driver = driver;
     }

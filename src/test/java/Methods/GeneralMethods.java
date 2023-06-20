@@ -22,10 +22,10 @@ public class GeneralMethods {
     public void click(By locator){
         driver.findElement(locator).click();
     }
-    public void type(String fullName,By locator){
+    public void type(String text,By locator){
         WebElement element = driver.findElement(locator);
         element.click();
-        element.sendKeys(fullName);
+        element.sendKeys(text);
     }
 
     public void scrollToElementAndClick(By locator, int scrollLimit) {

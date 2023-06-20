@@ -36,7 +36,7 @@ public class RegistrationMethods {
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
         DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH);
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         LocalDate date = LocalDate.parse(inputDate, inputFormat);
         genMeth.click(regLoc.yearArrow);
         WebElement yearDropdown = driver.findElement(regLoc.yearDropdown);
