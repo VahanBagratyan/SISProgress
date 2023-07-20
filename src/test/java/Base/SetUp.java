@@ -18,7 +18,7 @@ public class SetUp {
                 filePath = Paths.get(resourceUrl.toURI()).toFile().getAbsolutePath();
             }
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");

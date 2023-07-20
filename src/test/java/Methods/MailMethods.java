@@ -66,8 +66,8 @@ public class MailMethods {
                 Matcher matcher = pattern.matcher(intro);
                 if (matcher.find()) {
                     String userToken = matcher.group();
-                    reqMeth.getReq("https://sisprogress.online/"+path+"?" + userToken);
-                    System.out.println("https://sisprogress.online/"+path+"?" + userToken);
+                    reqMeth.getReq("https://sisprogress.online"+path+"?" + userToken);
+                    System.out.println("https://sisprogress.online"+path+"?" + userToken);
                 }
                 return;
             }

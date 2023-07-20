@@ -2,10 +2,7 @@ package Cases;
 
 import Base.AccountControl;
 import Base.SetUp;
-import Data.GeneralMessages;
-import Data.LogInMessages;
-import Data.MailSubjects;
-import Data.UserData;
+import Data.*;
 import Locators.*;
 import Methods.*;
 import io.appium.java_client.android.AndroidDriver;
@@ -46,20 +43,19 @@ public class AccountDeletionSystem {
     @Test
     public void accountDeletion() {
         GeneralMethods genMeth = new GeneralMethods(driver);
-        RegistrationLocators regLoc = new RegistrationLocators();
-        RegistrationMethods regMeth = new RegistrationMethods(driver);
         UserData userData = new UserData();
         MailMethods mailMeth = new MailMethods();
-        MailSubjects mailSub = new  MailSubjects();
+        MailSubjects mailSub = new MailSubjects();
         LogInLocators loginLoc = new LogInLocators();
         AssertMethods assertMeth = new AssertMethods(driver);
         RequestMethods reqMeth = new RequestMethods();
-        HomePageLocators homeLock = new HomePageLocators();
         ProfileLocators profileLoc = new ProfileLocators();
         GeneralMessages genMes = new GeneralMessages();
         LogInMessages logInMessages = new LogInMessages();
         ProfileMethods profileMeth = new ProfileMethods(driver);
         BottomMenuLocators menuLoc = new BottomMenuLocators();
+        Endpoints endpoints = new Endpoints();
+        JsonData jsonData = new JsonData();
         genMeth.click(menuLoc.profile);
         genMeth.scrollFromTo(700, 1500, 700, 700);
         genMeth.click(profileLoc.deleteAccount);
@@ -69,11 +65,9 @@ public class AccountDeletionSystem {
         genMeth.click(profileLoc.nextButton);
         genMeth.click(profileLoc.cancelButton);
         String userToken = mailMeth.getTokenFromEmail(mailSub.deletion, this.token);
-        System.out.println(userToken);
-        String a = reqMeth.patchReq("https://sisprogress.online/verify/delete", "{\n" +
-                "\"token\": \""+userToken+"\"\n" +
-                "}");
-        System.out.println(a);
+        System.out.println("mek");
+        reqMeth.patchReq(endpoints.accountDeletion, jsonData.accountDeletion(userToken));
+        System.out.println("erku");
         genMeth.click(loginLoc.logInButton);
         genMeth.type(this.tempMail, loginLoc.emailField);
         genMeth.type(userData.getPassword(), loginLoc.passwordField);

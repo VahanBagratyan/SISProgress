@@ -17,4 +17,11 @@ public class JsonData {
                 "    \"activityName\": []\n" +
                 "}";
     }
+
+    public String accountDeletion(String userToken){
+        return "{\n" +
+                "\"token\": \"" + userToken + "\"\n" +
+                "}";
+    }
+
 }

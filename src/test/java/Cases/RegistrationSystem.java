@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class RegistrationSystem {
     private AndroidDriver driver;
    // private static String appPkg;
-
+    String tempMail;
     @BeforeSuite
     public void setUp() {
         SetUp setUp = new SetUp();
@@ -75,7 +75,6 @@ public class RegistrationSystem {
         genMeth.type(tempMail, loginLoc.emailField);
         genMeth.type(userData.getPassword(), loginLoc.passwordField);
         genMeth.click(loginLoc.logInButton);
-
         genMeth.click(regLoc.termStart);
         genMeth.click(regLoc.admissionPlan);
         genMeth.click(regLoc.financeAID);
@@ -91,5 +90,26 @@ public class RegistrationSystem {
                 20,
                 logMes.wrongUserName
         );
+    }
+
+    @Test
+    public void registrationLeavingRequiredFieldEmpty() {
+        GeneralMethods genMeth = new GeneralMethods(driver);
+        RegistrationLocators regLoc = new RegistrationLocators();
+        RegistrationMethods regMeth = new RegistrationMethods(driver);
+        UserData userData = new UserData();
+        MailMethods mailMeth = new MailMethods();
+        MailSubjects mailSub = new MailSubjects();
+        LogInLocators loginLoc = new LogInLocators();
+        AssertMethods assertMeth = new AssertMethods(driver);
+        LogInMessages logMes = new LogInMessages();
+        HomePageLocators homeLock = new HomePageLocators();
+        UtilsMethods utilMeth = new UtilsMethods(driver);
+        this.tempMail = userData.getTempMail();
+        String token = mailMeth.createAccountReturnToken(this.tempMail);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        genMeth.click(regLoc.registrationButton);
+        genMeth.scrollFromTo(700, 1500, 700, 700);
+        genMeth.click(regLoc.nextButton);
     }
 }

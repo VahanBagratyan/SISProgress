@@ -5,6 +5,7 @@ import Locators.*;
 import Methods.*;
 import io.appium.java_client.android.AndroidDriver;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -95,7 +96,8 @@ public class AccountControl {
         reqMeth.postReq("https://sisprogress.online/sendMail","{\n" +
                 "  \"email\": \""+mail+"\"\n" +
                 "}");
-        mailMeth.verifyMailBySubject(mailSub.registration, token, "verify");
+        mailMeth.verifyMailBySubject(mailSub.registration, token, "/verify");
+        System.out.println("banananananna");
 
         genMeth.click(loginLoc.logInButton);
         genMeth.type(mail, loginLoc.emailField);
